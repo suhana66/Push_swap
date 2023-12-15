@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:16:49 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 16:58:39 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/15 17:46:57 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		return (clear_list(&stack_a), clear_list(&stack_b), 0);
 	assign_indices(argc, stack_a);
-	if (!is_sorted(stack_a))
-		push_swap(stack_a, stack_b, argc);
+	push_swap(stack_a, stack_b, argc);
 	return (clear_list(&stack_a), clear_list(&stack_b), 0);
 }
 

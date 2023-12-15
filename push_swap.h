@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 17:18:55 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/15 19:13:38 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ bool	is_sorted(t_list *stack);
 void	push_swap(t_list *stack_a, t_list *stack_b, int len_a);
 void	clear_list(t_list **lst);
 
-void	sa(t_list *stack);
+void	swap(t_list *stack, char stack_name);
+void	rotate(t_list *stack, char stack_name);
+void	reverse_rotate(t_list *stack, char stack_name);
+
+void	print_swap(char stack_name);
+void	print_rotate(char stack_name);
+void	print_reverse_rotate(char stack_name);
 
 #endif /* PUSH_SWAP_H */
