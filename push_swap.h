@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 13:15:47 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/15 17:18:55 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,10 @@ typedef struct s_list
 
 t_list	*create_list(int len, char **array);
 void	assign_indices(int len, t_list *stack);
+bool	is_sorted(t_list *stack);
+void	push_swap(t_list *stack_a, t_list *stack_b, int len_a);
+void	clear_list(t_list **lst);
+
+void	sa(t_list *stack);
 
 #endif /* PUSH_SWAP_H */

@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assign_indices.c                                   :+:      :+:    :+:   */
+/*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 17:27:43 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 17:12:28 by susajid          ###   ########.fr       */
+/*   Created: 2023/12/15 15:47:21 by susajid           #+#    #+#             */
+/*   Updated: 2023/12/15 15:53:54 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	assign_indices(int len, t_list *stack)
+void	sa(t_list *stack)
 {
-	int		index;
-	int		min_val;
-	t_list	*min_node;
-	t_list	*temp;
+	int	temp;
 
-	if (!stack)
-		return ;
-	index = 1;
-	min_val = INT_MAX;
-	while (index >= len)
-	{
-		temp = stack;
-		while (temp)
-		{
-			if (temp->index == 0 && temp->value <= min_val)
-			{
-				min_val = temp->value;
-				min_node = temp;
-			}
-			temp = temp->next;
-		}
-		min_node->index = index;
-		index++;
-	}
+	temp = stack->value;
+	stack->value = stack->next->value;
+	stack->next->value = temp;
+	ft_printf("sa\n");
 }

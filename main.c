@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:16:49 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 13:19:19 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/15 16:58:39 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
+	t_list	*stack_b;
 
 	stack_a = create_list(--argc, &argv[1]);
+	stack_b = NULL;
 	if (!stack_a)
 		return (1);
+	if (argc < 2)
+		return (clear_list(&stack_a), clear_list(&stack_b), 0);
 	assign_indices(argc, stack_a);
-	while (stack_a)
-	{
-		ft_printf("%d ", stack_a->value);
-		ft_printf("[%d]\n", stack_a->index);
-		stack_a = stack_a->next;
-	}
-	return (0);
+	if (!is_sorted(stack_a))
+		push_swap(stack_a, stack_b, argc);
+	return (clear_list(&stack_a), clear_list(&stack_b), 0);
 }
 
 bool	is_sorted(t_list *stack)
