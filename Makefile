@@ -1,6 +1,7 @@
 NAME := push_swap
 SRC := main.c \
-	create_list.c
+	create_list.c \
+	assign_indices.c
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 

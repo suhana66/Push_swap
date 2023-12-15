@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-void	error_list(t_list **result);
-int		insert_value(const char *str, int *result);
-int		found_duplicate(t_list *result);
-void	clear_list(t_list **lst);
+static void	error_list(t_list **result);
+static int	insert_value(const char *str, int *result);
+static int	if_duplicate(t_list *result);
+static void	clear_list(t_list **lst);
 
 t_list	*create_list(int len, char **array)
 {
@@ -37,22 +37,22 @@ t_list	*create_list(int len, char **array)
 		else
 			result = current;
 		last = current;
-		if (insert_value(array[i], &(current->value)) && !found_duplicate(result))
+		if (insert_value(array[i], &(current->value)) && !if_duplicate(result))
 			return (error_list(&result), NULL);
-		current->pos = 0;
+		current->index = 0;
 		current->next = NULL;
 		i++;
 	}
 	return (result);
 }
 
-void	error_list(t_list **result)
+static void	error_list(t_list **result)
 {
 	clear_list(result);
 	write(2, "Error\n", 6);
 }
 
-int	insert_value(const char *str, int *result)
+static int	insert_value(const char *str, int *result)
 {
 	int	sign;
 
@@ -76,7 +76,7 @@ int	insert_value(const char *str, int *result)
 	return (0);
 }
 
-int	found_duplicate(t_list *result)
+static int	if_duplicate(t_list *result)
 {
 	t_list	*temp;
 
@@ -94,7 +94,7 @@ int	found_duplicate(t_list *result)
 	return (0);
 }
 
-void	clear_list(t_list **lst)
+static void	clear_list(t_list **lst)
 {
 	t_list	*to_delete;
 

@@ -14,18 +14,17 @@
 # define PUSH_SWAP_H
 
 # include <limits.h>
-# include <unistd.h>
 # include <stdlib.h>
 # include "libft/libft.h"
 
 typedef struct s_list
 {
 	int				value;
-	int				pos;
+	int				index;
 	struct s_list	*next;
 }	t_list;
 
 t_list	*create_list(int len, char **array);
-void    assign_indices(int len, t_list *stack);
+void	assign_indices(int len, t_list *stack);
 
 #endif /* PUSH_SWAP_H */
