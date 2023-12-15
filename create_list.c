@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 11:53:25 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 12:56:50 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/15 13:19:41 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	error_list(t_list **result);
 static int	insert_value(const char *str, int *result);
-static int	if_duplicate(t_list *result);
+static bool	if_duplicate(t_list *result);
 static void	clear_list(t_list **lst);
 
 t_list	*create_list(int len, char **array)
@@ -76,7 +76,7 @@ static int	insert_value(const char *str, int *result)
 	return (0);
 }
 
-static int	if_duplicate(t_list *result)
+static bool	if_duplicate(t_list *result)
 {
 	t_list	*temp;
 
@@ -86,12 +86,12 @@ static int	if_duplicate(t_list *result)
 		while (temp)
 		{
 			if (result != temp && result->value == temp->value)
-				return (1);
+				return (true);
 			temp = temp->next;
 		}
 		result = result->next;
 	}
-	return (0);
+	return (false);
 }
 
 static void	clear_list(t_list **lst)

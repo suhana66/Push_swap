@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:16:49 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 12:57:47 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/15 13:19:19 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,15 @@ int	main(int argc, char **argv)
 		stack_a = stack_a->next;
 	}
 	return (0);
+}
+
+bool	is_sorted(t_list *stack)
+{
+	while (stack->next)
+	{
+		if (stack->value > stack->next->value)
+			return (false);
+		stack = stack->next;
+	}
+	return (true);
 }

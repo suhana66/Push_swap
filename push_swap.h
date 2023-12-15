@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 12:57:53 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/15 13:15:47 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <limits.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include "libft/libft.h"
 
 typedef struct s_list
