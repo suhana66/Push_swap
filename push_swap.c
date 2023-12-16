@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:05 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/16 19:08:01 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/16 19:13:47 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,4 @@ void	sort_3(t_list *stack, int stack_size)
 		reverse_rotate(&stack, 'a');
 	if (stack->index > stack->next->index)
 		swap(&stack, 'a');
-	while (stack)
-	{
-		ft_printf("%d [%d]\n", stack->value, stack->index);
-		stack = stack->next;
-	}
 }
