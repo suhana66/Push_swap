@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:27:43 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 17:12:28 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/16 09:26:04 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	assign_indices(int len, t_list *stack)
 	if (!stack)
 		return ;
 	index = 1;
-	min_val = INT_MAX;
-	while (index >= len)
+	while (index <= len)
 	{
+		min_val = INT_MAX;
 		temp = stack;
 		while (temp)
 		{

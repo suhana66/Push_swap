@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 19:13:38 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/16 09:54:53 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	push_swap(t_list *stack_a, t_list *stack_b, int len_a);
 void	clear_list(t_list **lst);
 
 void	swap(t_list *stack, char stack_name);
-void	rotate(t_list *stack, char stack_name);
+void	rotate(t_list **stack, char stack_name);
 void	reverse_rotate(t_list *stack, char stack_name);
 
 void	print_swap(char stack_name);
