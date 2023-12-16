@@ -6,13 +6,13 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:47:21 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/16 16:29:15 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/16 17:17:01 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_instruction(char instruction, char name);
+static int	ft_strcmp(const char *s1, const char *s2);
 
 void	swap(t_list *stack, char stack_name)
 {
@@ -23,7 +23,7 @@ void	swap(t_list *stack, char stack_name)
 	temp = stack->next->next;
 	stack->next->next = stack;
 	stack->next = temp;
-	print_instruction('s', stack_name);
+	print_instruction("s", stack_name);
 }
 
 void	rotate(t_list **stack, char stack_name)
@@ -40,7 +40,7 @@ void	rotate(t_list **stack, char stack_name)
 		end = end->next;
 	end->next = start;
 	start->next = NULL;
-	print_instruction('r', stack_name);
+	print_instruction("r", stack_name);
 }
 
 void	reverse_rotate(t_list *stack, char stack_name)
@@ -58,12 +58,12 @@ void	reverse_rotate(t_list *stack, char stack_name)
 	}
 	previous->next = NULL;
 	last->next = stack;
-	print_instruction('u', stack_name);
+	print_instruction("rr", stack_name);
 }
 
-void	print_instruction(char instruction, char name)
+void	print_instruction(char *instruction, char name)
 {
-	static char	previous_instruction = 0;
+	static char	*previous_instruction = NULL;
 	static char	previous_name = 0;
 
 	if (!previous_instruction && !previous_name && instruction && name)
@@ -71,16 +71,27 @@ void	print_instruction(char instruction, char name)
 		previous_instruction = instruction;
 		previous_name = name;
 	}
-	else if (previous_instruction == instruction && previous_name != name)
+	else if (instruction && !ft_strcmp(previous_instruction, instruction)
+		&& previous_name != name)
 	{
-		ft_printf("%cr\n", instruction);
-		previous_instruction = 0;
+		ft_printf("%sr\n", instruction);
+		previous_instruction = NULL;
 		previous_name = 0;
 	}
 	else
 	{
-		ft_printf("%c%c\n", previous_instruction, previous_name);
+		ft_printf("%s%c\n", previous_instruction, previous_name);
 		previous_instruction = instruction;
 		previous_name = name;
 	}
+}
+
+static int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((int)((unsigned char)*s1 - (unsigned char)*s2));
 }
