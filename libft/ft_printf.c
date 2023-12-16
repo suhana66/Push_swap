@@ -6,13 +6,13 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:14:59 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/16 10:39:21 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/16 16:27:49 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	print_format(int *result, char *s, va_list args);
+static void	print_format(int *result, char *s, va_list *args);
 static void	ft_print_chars(int *count, char *s, int len);
 static void	ft_print_unsigned(int *count, unsigned long long n,
 				unsigned long long base, char replace_c);
@@ -32,7 +32,7 @@ int	ft_printf(const char *s, ...)
 			s++;
 			if (!*s)
 				break ;
-			print_format(&result, (char *)s, args);
+			print_format(&result, (char *)s, &args);
 		}
 		else
 			ft_print_chars(&result, (char *)s, 1);
@@ -44,30 +44,30 @@ int	ft_printf(const char *s, ...)
 	return (result);
 }
 
-static void	print_format(int *result, char *s, va_list args)
+static void	print_format(int *result, char *s, va_list *args)
 {
-	long long	var;
+	char	var;
 
 	if (*s == 'c')
 	{
-		var = va_arg(args, int);
-		ft_print_chars(result, (char *)&var, 1);
+		var = va_arg(*args, int);
+		ft_print_chars(result, &var, 1);
 	}
 	else if (*s == 's')
-		ft_print_chars(result, va_arg(args, char *), -1);
+		ft_print_chars(result, va_arg(*args, char *), -1);
 	else if (*s == 'p')
 	{
 		ft_print_chars(result, "0x", -1);
-		ft_print_unsigned(result, va_arg(args, unsigned long long), 16, 'a');
+		ft_print_unsigned(result, va_arg(*args, unsigned long long), 16, 'a');
 	}
 	else if (*s == 'd' || *s == 'i')
-		ft_print_int(result, va_arg(args, int), 0);
+		ft_print_int(result, va_arg(*args, int), 0);
 	else if (*s == 'u')
-		ft_print_unsigned(result, va_arg(args, unsigned int), 10, 0);
+		ft_print_unsigned(result, va_arg(*args, unsigned int), 10, 0);
 	else if (*s == 'x')
-		ft_print_unsigned(result, va_arg(args, unsigned int), 16, 'a');
+		ft_print_unsigned(result, va_arg(*args, unsigned int), 16, 'a');
 	else if (*s == 'X')
-		ft_print_unsigned(result, va_arg(args, unsigned int), 16, 'A');
+		ft_print_unsigned(result, va_arg(*args, unsigned int), 16, 'A');
 	else if (*s == '%')
 		ft_print_chars(result, s, 1);
 }
