@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:47:21 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/16 18:51:08 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/16 19:07:51 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 static int	ft_strcmp(const char *s1, const char *s2);
 
-void	swap(t_list *stack, char stack_name)
+void	swap(t_list **stack, char stack_name)
 {
-	t_list	*temp;
+	t_list	*node1;
+	t_list	*node2;
 
-	if (!stack || !stack->next)
+	if (!*stack || !(*stack)->next)
 		return ;
-	temp = stack->next->next;
-	stack->next->next = stack;
-	stack->next = temp;
+	node1 = *stack;
+	node2 = (*stack)->next;
+	node1->next = node2->next;
+    node2->next = node1;
+    *stack = node2;
 	print_instruction("s", stack_name);
 }
 
