@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:05 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/16 16:36:02 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/16 18:53:55 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	sort_3(t_list *stack, int stack_size)
 	if (stack->index == stack_size)
 		rotate(&stack, 'a');
 	else if (stack->next->index == stack_size)
-		reverse_rotate(stack, 'a');
+		reverse_rotate(&stack, 'a');
 	if (stack->index > stack->next->index)
 		swap(stack, 'a');
 }

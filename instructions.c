@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:47:21 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/16 17:17:01 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/16 18:51:08 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	swap(t_list *stack, char stack_name)
 {
 	t_list	*temp;
 
-	if (!stack)
+	if (!stack || !stack->next)
 		return ;
 	temp = stack->next->next;
 	stack->next->next = stack;
@@ -43,21 +43,22 @@ void	rotate(t_list **stack, char stack_name)
 	print_instruction("r", stack_name);
 }
 
-void	reverse_rotate(t_list *stack, char stack_name)
+void	reverse_rotate(t_list **stack, char stack_name)
 {
 	t_list	*previous;
 	t_list	*last;
 
-	if (!stack)
+	if (!*stack || !(*stack)->next)
 		return ;
-	last = stack;
+	last = *stack;
 	while (last->next)
 	{
 		previous = last;
 		last = last->next;
 	}
 	previous->next = NULL;
-	last->next = stack;
+	last->next = *stack;
+	*stack = last;
 	print_instruction("rr", stack_name);
 }
 
