@@ -6,17 +6,13 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:05 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/20 10:40:43 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/20 17:35:38 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_3(t_list *stack);
-void	sort(t_list *stack_a, t_list *stack_b, int len_a);
-bool	is_sorted(t_list *stack);
-
-void	push_swap(t_list *stack_a, t_list *stack_b, int len_a)
+void	push_swap(t_stack *stack_a, t_stack *stack_b, int len_a)
 {
 	if (is_sorted(stack_a))
 		return ;
@@ -29,42 +25,17 @@ void	push_swap(t_list *stack_a, t_list *stack_b, int len_a)
 	print_instruction(0, 0);
 }
 
-void	sort_3(t_list *stack)
+void	sort_3(t_stack *stack)
 {
 	int	max_value;
-	t_list	*temp;
 
 	if (is_sorted(stack))
 		return ;
-	temp = stack;
-	max_value = INT_MIN;
-	while (temp)
-	{
-		if (temp->value > max_value)
-			max_value = temp->value;
-		temp = temp->next;
-	}
+	max_value = find_max(stack);
 	if (stack->value == max_value)
 		rotate(&stack, 'a');
 	else if (stack->next->value == max_value)
 		reverse_rotate(&stack, 'a');
 	if (stack->value > stack->next->value)
 		swap(&stack, 'a');
-}
-
-void	sort(t_list *stack_a, t_list *stack_b, int len_a)
-{
-	(void)stack_a;
-	(void)stack_b;
-}
-
-bool	is_sorted(t_list *stack)
-{
-	while (stack->next)
-	{
-		if (stack->value > stack->next->value)
-			return (false);
-		stack = stack->next;
-	}
-	return (true);
 }

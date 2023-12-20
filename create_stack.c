@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_list.c                                      :+:      :+:    :+:   */
+/*   create_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 11:53:25 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/20 10:23:55 by susajid          ###   ########.fr       */
+/*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
+/*   Updated: 2023/12/20 15:08:40 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	error_list(t_list **result);
+static void	error_stack(t_stack **result);
 static int	insert_value(const char *str, int *result);
-static bool	if_duplicate(t_list *result);
+static bool	if_duplicate(t_stack *result);
 
-t_list	*create_list(int len, char **array)
+t_stack	*create_stack(int len, char **array)
 {
-	t_list	*result;
-	t_list	*current;
-	t_list	*last;
+	t_stack	*result;
+	t_stack	*current;
+	t_stack	*last;
 	int		i;
 
 	i = 0;
@@ -28,25 +28,25 @@ t_list	*create_list(int len, char **array)
 	last = NULL;
 	while (i < len)
 	{
-		current = malloc(sizeof(t_list));
+		current = malloc(sizeof(t_stack));
 		if (!current)
-			return (error_list(&result), NULL);
+			return (error_stack(&result), NULL);
 		if (last)
 			last->next = current;
 		else
 			result = current;
 		last = current;
 		if (insert_value(array[i], &(current->value)) || if_duplicate(result))
-			return (error_list(&result), NULL);
+			return (error_stack(&result), NULL);
 		current->next = NULL;
 		i++;
 	}
 	return (result);
 }
 
-static void	error_list(t_list **result)
+static void	error_stack(t_stack **result)
 {
-	clear_list(result);
+	clear_stack(result);
 	write(2, "Error\n", 6);
 }
 
@@ -74,9 +74,9 @@ static int	insert_value(const char *str, int *result)
 	return (0);
 }
 
-static bool	if_duplicate(t_list *result)
+static bool	if_duplicate(t_stack *result)
 {
-	t_list	*temp;
+	t_stack	*temp;
 
 	temp = result;
 	while (result)

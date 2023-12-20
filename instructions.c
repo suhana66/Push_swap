@@ -6,16 +6,16 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:47:21 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/20 10:09:12 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/20 15:07:03 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap(t_list **stack, char stack_name)
+void	swap(t_stack **stack, char stack_name)
 {
-	t_list	*node1;
-	t_list	*node2;
+	t_stack	*node1;
+	t_stack	*node2;
 
 	if (!*stack || !(*stack)->next)
 		return ;
@@ -27,10 +27,10 @@ void	swap(t_list **stack, char stack_name)
 	print_instruction("s", stack_name);
 }
 
-void	rotate(t_list **stack, char stack_name)
+void	rotate(t_stack **stack, char stack_name)
 {
-	t_list	*start;
-	t_list	*end;
+	t_stack	*start;
+	t_stack	*end;
 
 	if (!*stack || !(*stack)->next)
 		return ;
@@ -44,10 +44,10 @@ void	rotate(t_list **stack, char stack_name)
 	print_instruction("r", stack_name);
 }
 
-void	reverse_rotate(t_list **stack, char stack_name)
+void	reverse_rotate(t_stack **stack, char stack_name)
 {
-	t_list	*previous;
-	t_list	*last;
+	t_stack	*previous;
+	t_stack	*last;
 
 	if (!*stack || !(*stack)->next)
 		return ;
@@ -63,9 +63,9 @@ void	reverse_rotate(t_list **stack, char stack_name)
 	print_instruction("rr", stack_name);
 }
 
-void	push(t_list **src_stack, t_list **dst_stack, char dst_stack_name)
+void	push(t_stack **src_stack, t_stack **dst_stack, char dst_stack_name)
 {
-	t_list	*temp;
+	t_stack	*temp;
 
 	temp = *src_stack;
 	*src_stack = (*src_stack)->next;
