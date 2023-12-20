@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:47:21 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/20 09:59:58 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/20 10:09:12 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ void	reverse_rotate(t_list **stack, char stack_name)
 	print_instruction("rr", stack_name);
 }
 
-void	push(t_list *src_stack, t_list *dst_stack, char stack_name)
+void	push(t_list **src_stack, t_list **dst_stack, char dst_stack_name)
 {
-	(void)src_stack;
-	(void)dst_stack;
-	(void)stack_name;
+	t_list	*temp;
+
+	temp = *src_stack;
+	*src_stack = (*src_stack)->next;
+	temp->next = *dst_stack;
+	*dst_stack = temp;
+	print_instruction("p", dst_stack_name);
 }
 
 void	print_instruction(char *instruction, char name)
