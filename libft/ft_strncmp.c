@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 11:30:11 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/20 10:00:30 by susajid          ###   ########.fr       */
+/*   Created: 2023/11/01 16:26:37 by susajid           #+#    #+#             */
+/*   Updated: 2023/12/20 09:51:01 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdarg.h>
-# include <stdlib.h>
-
-int		ft_printf(const char *s, ...);
-size_t	ft_strlen(const char *s);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-
-#endif /* LIBFT_H */
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	while (*s1 && *s2 && *s1 == *s2 && n)
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+	if (!n)
+		return (0);
+	return ((int)((unsigned char)*s1 - (unsigned char)*s2));
+}
