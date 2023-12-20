@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 11:53:25 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/15 17:00:30 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/20 10:23:55 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ t_list	*create_list(int len, char **array)
 		else
 			result = current;
 		last = current;
-		if (insert_value(array[i], &(current->value)) && !if_duplicate(result))
+		if (insert_value(array[i], &(current->value)) || if_duplicate(result))
 			return (error_list(&result), NULL);
-		current->index = 0;
 		current->next = NULL;
 		i++;
 	}

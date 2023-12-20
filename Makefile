@@ -1,6 +1,5 @@
 NAME := push_swap
-SRC := assign_indices.c \
-	clear_list.c \
+SRC := clear_list.c \
 	create_list.c \
 	instructions.c \
 	main.c \
