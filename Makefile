@@ -1,11 +1,11 @@
 NAME := push_swap
-SRC := create_stack.c \
-	clear_stack.c \
+SRC := clear.c \
 	instructions.c \
 	main.c \
 	push_swap.c \
-	stack_utils.c \
-	sort.c
+	set.c \
+	sort.c \
+	stack_utils.c
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 

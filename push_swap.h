@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/20 18:17:22 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/21 11:24:30 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,27 @@ typedef struct s_stack
 	struct s_stack	*next;
 }	t_stack;
 
-t_stack	*create_stack(int len, char **array);
-void	push_swap(t_stack *stack_a, t_stack *stack_b, int len_a);
-void	clear_stack(t_stack **stack);
+typedef struct s_sorting
+{
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	int		len_a;
+}	t_sorting;
 
-bool	is_sorted(t_stack *stack);
-int		find_max(t_stack *stack);
-int		find_min(t_stack *stack);
+t_sorting	*set_sorting(int len, char **array);
+void		push_swap(t_sorting *sorting);
+void		clear_sorting(t_sorting *sorting);
 
-void	swap(t_stack **stack, char stack_name);
-void	rotate(t_stack **stack, char stack_name);
-void	reverse_rotate(t_stack **stack, char stack_name);
-void	push(t_stack **src_stack, t_stack **dst_stack, char dst_stack_name);
-void	print_instruction(char *instruction, char name);
+bool		is_sorted(t_stack *stack);
+int			find_max(t_stack *stack);
+int			find_min(t_stack *stack);
 
-void	sort_3(t_stack *stack);
-void	sort(t_stack *stack_a, t_stack *stack_b, int len_a);
+void		swap(t_sorting *sorting, char stack_name, bool if_print);
+void		rotate(t_sorting *sorting, char stack_name, bool if_print);
+void		reverse_rotate(t_sorting *sorting, char stack_name, bool if_print);
+void		push(t_sorting *sorting, char stack_name, bool if_print);
+
+void		sort_3(t_sorting *sorting);
+void		sort(t_sorting *sorting);
 
 #endif /* PUSH_SWAP_H */

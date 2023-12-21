@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 16:26:37 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/20 09:51:01 by susajid          ###   ########.fr       */
+/*   Created: 2023/12/20 18:16:57 by susajid           #+#    #+#             */
+/*   Updated: 2023/12/21 11:24:51 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+static void	clear_stack(t_stack *stack);
+
+void	clear_sorting(t_sorting *sorting)
 {
-	while (*s1 && *s2 && *s1 == *s2 && n)
+	if (!sorting)
+		return ;
+	clear_stack(sorting->stack_a);
+	clear_stack(sorting->stack_b);
+	free(sorting);
+}
+
+static void	clear_stack(t_stack *stack)
+{
+	t_stack	*to_delete;
+
+	if (!stack)
+		return ;
+	while (stack)
 	{
-		s1++;
-		s2++;
-		n--;
+		to_delete = stack;
+		stack = to_delete->next;
+		free(to_delete);
 	}
-	if (!n)
-		return (0);
-	return ((int)((unsigned char)*s1 - (unsigned char)*s2));
 }
