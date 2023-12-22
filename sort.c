@@ -5,45 +5,113 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/20 16:08:54 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/21 11:30:17 by susajid          ###   ########.fr       */
+/*   Created: 2023/12/22 11:58:41 by susajid           #+#    #+#             */
+/*   Updated: 2023/12/22 17:38:48 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	move_value(t_stack *stack, int len, int to_insert);
-static void	move_cheapest(t_sorting *sorting);
+static void	sort_3(t_sorting *sorting);
+static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move);
+static void	do_cheap(t_sorting *sorting);
+static int	total_move(int a_move, int b_move);
 
 void	sort(t_sorting *sorting)
 {
-	int	pushed;
-
-	pushed = 0;
-	while (sorting->len_a - pushed > 3 && !is_sorted(sorting->stack_a))
+	while (sorting->len_a > 3)
 	{
-		if (pushed >= 2)
-			move_cheapest(sorting);
+		if (sorting->len_b >= 2)
+			do_cheap(sorting);
 		push(sorting, 'b', true);
-		pushed++;
 	}
 	sort_3(sorting);
 	while (sorting->stack_b)
 	{
-		move_value(sorting->stack_a, sorting->len_a, sorting->stack_b->value);
+		do_move(sorting, find_move(sorting->stack_a, sorting->len_a,
+				sorting->stack_b->value, false), 0);
 		push(sorting, 'a', true);
 	}
-	move_value(sorting->stack_a, sorting->len_a, find_min(sorting->stack_a));
+	do_move(sorting, find_move(sorting->stack_a, sorting->len_a,
+			find_min(sorting->stack_a), false), 0);
 }
 
-static void	move_value(t_stack *stack, int len, int to_insert)
+static void	sort_3(t_sorting *sorting)
 {
-	(void)stack;
-	(void)len;
-	(void)to_insert;
+	int	max_value;
+
+	max_value = find_max(sorting->stack_a);
+	if (sorting->stack_a->value == max_value)
+		rotate(sorting, 'a', true);
+	else if (sorting->stack_a->next->value == max_value)
+		reverse_rotate(sorting, 'a', true);
+	if (sorting->stack_a->value > sorting->stack_a->next->value)
+		swap(sorting, 'a', true);
 }
 
-static void	move_cheapest(t_sorting *sorting)
+static void	do_cheap(t_sorting *sorting)
 {
-	(void)sorting;
+	t_stack	*counter;
+	int		to_insert;
+	int		a_move;
+	int		b_move;
+
+	counter = sorting->stack_a;
+	while (counter)
+	{
+		to_insert = counter->value;
+		if (to_insert < find_min(sorting->stack_b)
+			|| to_insert > find_min(sorting->stack_b))
+			to_insert = find_max(sorting->stack_b);
+		a_move = find_move(sorting->stack_a, sorting->len_a,
+				counter->value, false);
+		b_move = find_move(sorting->stack_b, sorting->len_b, to_insert, true);
+		find_cheap(sorting, &a_move, &b_move);
+		do_move(sorting, a_move, b_move);
+		counter = counter->next;
+	}
+}
+
+static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move)
+{
+	int	poss_a[4];
+	int	poss_b[4];
+	int	i;
+	int	min_move;
+
+	i = -1;
+	while (++i < 4)
+	{
+		poss_a[i] = *a_move;
+		if (i >= 2)
+			poss_a[i] -= sorting->len_a;
+		poss_b[i] = *b_move;
+		if (i % 2 != 0)
+			poss_b[i] -= sorting->len_b;
+	}
+	min_move = INT_MAX;
+	while (--i <= 0)
+	{
+		if (total_move(poss_a[i], poss_b[i]) < min_move)
+		{
+			min_move = total_move(poss_a[i], poss_b[i]);
+			*a_move = poss_a[i];
+			*b_move = poss_b[i];
+		}
+	}
+}
+
+static int	total_move(int a_move, int b_move)
+{
+	if ((a_move < 0 && b_move < 0) || (a_move > 0 && b_move > 0))
+	{
+		a_move = absolute(a_move);
+		b_move = absolute(b_move);
+		if (a_move > b_move)
+			return (a_move);
+		else
+			return (b_move);
+	}
+	else
+		return (absolute(a_move) + absolute(b_move));
 }

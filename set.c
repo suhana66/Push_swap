@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                           :+:      :+:    :+:   */
+/*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/21 09:51:10 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/22 09:24:00 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ t_sorting	*set_sorting(int len, char **array)
 	if (!result->stack_a)
 		return (error_sorting(result), NULL);
 	result->stack_b = NULL;
+	result->total_len = len;
 	result->len_a = len;
+	result->len_b = 0;
 	return (result);
 }
 

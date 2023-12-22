@@ -5,7 +5,7 @@ SRC := clear.c \
 	push_swap.c \
 	set.c \
 	sort.c \
-	stack_utils.c
+	sort_utils.c
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 
