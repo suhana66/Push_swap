@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/23 10:56:41 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/23 11:44:18 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	insert_value(const char *str, int *result)
 		if (*str < '0' || *str > '9')
 			return (2);
 		*result = *result * 10 + (*str - 48) * sign;
-		if (*result > INT_MAX || *result < INT_MIN)
+		if ((*result < 0 && sign > 0) || (*result > 0 && sign < 0))
 			return (3);
 		str++;
 	}
