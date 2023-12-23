@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/23 08:57:11 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/23 10:34:48 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_sorting	*set_sorting(int len, char **array)
 		return (NULL);
 	result->stack_b = NULL;
 	result->stack_a = set_stack(len, array);
-	if (!result->stack_a)
+	if (!result->stack_a && len != 0)
 		return (clear_sorting(result), write(2, "Error\n", 6), NULL);
 	result->total_len = len;
 	result->len_a = len;
@@ -48,14 +48,14 @@ static t_stack	*set_stack(int len, char **array)
 		current = malloc(sizeof(t_stack));
 		if (!current)
 			return (clear_stack(result), NULL);
+		if (insert_value(array[i], &(current->value)) || if_duplicate(result))
+			return (clear_stack(result), NULL);
+		current->next = NULL;
 		if (last)
 			last->next = current;
 		else
 			result = current;
 		last = current;
-		if (insert_value(array[i], &(current->value)) || if_duplicate(result))
-			return (clear_stack(result), NULL);
-		current->next = NULL;
 		i++;
 	}
 	return (result);
