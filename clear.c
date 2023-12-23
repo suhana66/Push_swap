@@ -28,7 +28,7 @@ void	clear_stack(t_stack *stack)
 	while (stack)
 	{
 		to_delete = stack;
-		stack = to_delete->next;
+		stack = stack->next;
 		free(to_delete);
 	}
 }

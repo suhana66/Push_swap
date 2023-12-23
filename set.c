@@ -23,10 +23,10 @@ t_sorting	*set_sorting(int len, char **array)
 	result = malloc(sizeof(t_sorting));
 	if (!result)
 		return (NULL);
+	result->stack_b = NULL;
 	result->stack_a = set_stack(len, array);
 	if (!result->stack_a && len != 0)
 		return (clear_sorting(result), write(2, "Error\n", 6), NULL);
-	result->stack_b = NULL;
 	result->total_len = len;
 	result->len_a = len;
 	result->len_b = 0;
@@ -47,7 +47,7 @@ static t_stack	*set_stack(int len, char **array)
 	{
 		current = malloc(sizeof(t_stack));
 		if (!current || insert_value(array[i], &(current->value)))
-			return (clear_stack(result), NULL);
+			return (clear_stack(result), free(current), NULL);
 		current->next = NULL;
 		if (last)
 			last->next = current;
