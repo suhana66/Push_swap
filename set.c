@@ -6,13 +6,12 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/22 09:24:00 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/23 08:57:11 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void		error_sorting(t_sorting *sorting);
 static t_stack	*set_stack(int len, char **array);
 static int		insert_value(const char *str, int *result);
 static bool		if_duplicate(t_stack *result);
@@ -23,21 +22,15 @@ t_sorting	*set_sorting(int len, char **array)
 
 	result = malloc(sizeof(t_sorting));
 	if (!result)
-		return (error_sorting(result), NULL);
+		return (NULL);
+	result->stack_b = NULL;
 	result->stack_a = set_stack(len, array);
 	if (!result->stack_a)
-		return (error_sorting(result), NULL);
-	result->stack_b = NULL;
+		return (clear_sorting(result), write(2, "Error\n", 6), NULL);
 	result->total_len = len;
 	result->len_a = len;
 	result->len_b = 0;
 	return (result);
-}
-
-static void	error_sorting(t_sorting *sorting)
-{
-	clear_sorting(sorting);
-	write(2, "Error\n", 6);
 }
 
 static t_stack	*set_stack(int len, char **array)
@@ -54,14 +47,14 @@ static t_stack	*set_stack(int len, char **array)
 	{
 		current = malloc(sizeof(t_stack));
 		if (!current)
-			return (NULL);
+			return (clear_stack(result), NULL);
 		if (last)
 			last->next = current;
 		else
 			result = current;
 		last = current;
 		if (insert_value(array[i], &(current->value)) || if_duplicate(result))
-			return (NULL);
+			return (clear_stack(result), NULL);
 		current->next = NULL;
 		i++;
 	}
@@ -95,10 +88,12 @@ static int	insert_value(const char *str, int *result)
 static bool	if_duplicate(t_stack *result)
 {
 	t_stack	*temp;
+	t_stack	*start;
 
-	temp = result;
+	start = result;
 	while (result)
 	{
+		temp = start;
 		while (temp)
 		{
 			if (result != temp && result->value == temp->value)

@@ -6,13 +6,11 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:16:57 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/21 12:48:29 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/23 08:50:00 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	clear_stack(t_stack *stack);
 
 void	clear_sorting(t_sorting *sorting)
 {
@@ -23,7 +21,7 @@ void	clear_sorting(t_sorting *sorting)
 	free(sorting);
 }
 
-static void	clear_stack(t_stack *stack)
+void	clear_stack(t_stack *stack)
 {
 	t_stack	*to_delete;
 

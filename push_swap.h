@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/22 13:48:24 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/23 08:26:31 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_sorting
 t_sorting	*set_sorting(int len, char **array);
 void		push_swap(t_sorting *sorting);
 void		clear_sorting(t_sorting *sorting);
+void		clear_stack(t_stack *stack);
 
 void		sort(t_sorting *sorting);
 int			find_move(t_stack *stack, int len, int insert, bool if_desc);
