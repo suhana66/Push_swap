@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/23 11:44:18 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/23 12:27:34 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static t_stack	*set_stack(int len, char **array)
 	while (i < len)
 	{
 		current = malloc(sizeof(t_stack));
-		if (!current || insert_value(array[i], &(current->value)))
+		if (!current || insert_value(array[i++], &(current->value)))
 			return (clear_stack(result), free(current), NULL);
 		current->next = NULL;
 		if (last)
@@ -56,7 +56,6 @@ static t_stack	*set_stack(int len, char **array)
 		last = current;
 		if (if_duplicate(result))
 			return (clear_stack(result), NULL);
-		i++;
 	}
 	return (result);
 }
@@ -65,23 +64,23 @@ static int	insert_value(const char *str, int *result)
 {
 	int	sign;
 
-	if (*str == 0)
-		return (1);
 	sign = 1;
 	if (*str == '-')
 		sign = -1;
 	if (*str == '-' || *str == '+')
 		str++;
 	*result = 0;
-	while (*str)
+	if (!*str)
+		return (1);
+	while (*str >= '0' && *str <= '9')
 	{
-		if (*str < '0' || *str > '9')
-			return (2);
-		*result = *result * 10 + (*str - 48) * sign;
+		*result = *result * 10 + (*str - '0') * sign;
 		if ((*result < 0 && sign > 0) || (*result > 0 && sign < 0))
-			return (3);
+			return (2);
 		str++;
 	}
+	if (*str)
+		return (3);
 	return (0);
 }
 
