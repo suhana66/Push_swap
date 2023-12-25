@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:05 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/25 13:37:49 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/25 18:00:36 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,22 @@ void	push_swap(t_sorting *sorting)
 		}
 	}
 	do_move(sorting, find_move(sorting->stack_a, sorting->len_a,
-			find_min(sorting->stack_a), false), 0);
+			INT_MIN, false), 0);
 }
 
 static void	sort_3(t_sorting *sorting)
 {
-	int	max_value;
+	t_stack	*temp;
+	int		max_value;
 
-	max_value = find_max(sorting->stack_a);
+	temp = sorting->stack_a;
+	max_value = INT_MIN;
+	while (temp)
+	{
+		if (temp->value > max_value)
+			max_value = temp->value;
+		temp = temp->next;
+	}
 	if (sorting->stack_a->value == max_value)
 		rotate(sorting, 'a', true);
 	else if (sorting->stack_a->next->value == max_value)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_utils.c                                       :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:13:56 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/25 13:25:41 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/25 20:53:08 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,27 @@ static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move);
 
 int	find_move(t_stack *stack, int len, int insert, bool if_desc)
 {
-	int	difference;
-	int	min_difference;
-	int	count;
-	int	i;
+	long	difference;
+	long	min_difference;
+	int		count;
+	int		i;
 
-	min_difference = INT_MAX;
-	i = 0;
-	while (i < len)
+	min_difference = LONG_MAX;
+	i = -1;
+	count = 0;
+	while (++i < len)
 	{
-		difference = stack->value - insert;
-		if (difference == 0)
-			return (i);
+		difference = (long)stack->value - insert;
 		if ((!if_desc && difference > 0) || (if_desc && difference < 0))
 		{
-			difference = absolute(difference);
+			if (difference < 0)
+				difference *= -1;
 			if (difference < min_difference)
 			{
 				count = i;
 				min_difference = difference;
 			}
 		}
-		i++;
 		stack = stack->next;
 	}
 	return (count);
