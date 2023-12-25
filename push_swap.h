@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/23 08:26:31 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/25 13:38:26 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ void		push_swap(t_sorting *sorting);
 void		clear_sorting(t_sorting *sorting);
 void		clear_stack(t_stack *stack);
 
-void		sort(t_sorting *sorting);
 int			find_move(t_stack *stack, int len, int insert, bool if_desc);
 void		do_move(t_sorting *sorting, int a_move, int b_move);
+void		do_cheap(t_sorting *sorting);
 
 bool		is_sorted(t_stack *stack);
+bool		circle_sorted(t_stack *stack, int stack_len);
 int			find_max(t_stack *stack);
 int			find_min(t_stack *stack);
 int			absolute(int num);

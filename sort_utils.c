@@ -5,62 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/22 12:13:56 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/22 20:57:37 by susajid          ###   ########.fr       */
+/*   Created: 2023/12/22 11:58:41 by susajid           #+#    #+#             */
+/*   Updated: 2023/12/25 14:04:31 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	find_move(t_stack *stack, int len, int insert, bool if_desc)
+bool	is_sorted(t_stack *stack)
 {
-	int	difference;
-	int	min_difference;
-	int	count;
-	int	i;
-
-	min_difference = INT_MAX;
-	i = 0;
-	while (i < len)
+	if (!stack)
+		return (true);
+	while (stack->next)
 	{
-		difference = stack->value - insert;
-		if (difference == 0)
-			return (i);
-		if ((!if_desc && difference > 0) || (if_desc && difference < 0))
-		{
-			difference = absolute(difference);
-			if (difference < min_difference)
-			{
-				count = i;
-				min_difference = difference;
-			}
-		}
-		i++;
+		if (stack->value > stack->next->value)
+			return (false);
 		stack = stack->next;
 	}
-	return (count);
+	return (true);
 }
 
-void	do_move(t_sorting *sorting, int a_move, int b_move)
+bool	circle_sorted(t_stack *stack, int stack_len)
 {
-	while (a_move < 0 && b_move < 0 && a_move++ && b_move++)
+	int		first_val;
+	int		min_pos;
+
+	if (!stack)
+		return (true);
+	min_pos = find_move(stack, stack_len, find_min(stack), false);
+	first_val = stack->value;
+	while (--min_pos && stack->next)
 	{
-		reverse_rotate(sorting, 'a', false);
-		reverse_rotate(sorting, 'b', false);
-		ft_printf("rrs\n");
+		if (stack->value > stack->next->value)
+			return (false);
+		stack = stack->next;
 	}
-	while (a_move > 0 && b_move > 0 && a_move-- && b_move--)
+	stack = stack->next;
+	while (stack->next)
 	{
-		rotate(sorting, 'a', false);
-		rotate(sorting, 'b', false);
-		ft_printf("rs\n");
+		if (stack->value > stack->next->value)
+			return (false);
+		stack = stack->next;
 	}
-	while (a_move < 0 && a_move++)
-		reverse_rotate(sorting, 'a', false);
-	while (a_move > 0 && a_move--)
-		rotate(sorting, 'a', false);
-	while (b_move < 0 && b_move++)
-		reverse_rotate(sorting, 'b', false);
-	while (b_move > 0 && b_move--)
-		rotate(sorting, 'b', false);
+	if (stack->value > first_val)
+		return (false);
+	return (true);
+}
+
+int	find_max(t_stack *stack)
+{
+	int	max_value;
+
+	max_value = INT_MIN;
+	while (stack)
+	{
+		if (stack->value > max_value)
+			max_value = stack->value;
+		stack = stack->next;
+	}
+	return (max_value);
+}
+
+int	find_min(t_stack *stack)
+{
+	int	min_value;
+
+	min_value = INT_MAX;
+	while (stack)
+	{
+		if (stack->value < min_value)
+			min_value = stack->value;
+		stack = stack->next;
+	}
+	return (min_value);
+}
+
+int	absolute(int num)
+{
+	if (num < 0)
+		return (num * -1);
+	return (num);
 }
