@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/23 12:27:34 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/29 07:57:29 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_stack	*set_stack(int len, char **array);
 static int		insert_value(const char *str, int *result);
-static bool		if_duplicate(t_stack *result);
+static bool		if_duplicate(t_stack *stack, int value);
 
 t_sorting	*set_sorting(int len, char **array)
 {
@@ -26,7 +26,7 @@ t_sorting	*set_sorting(int len, char **array)
 	result->stack_b = NULL;
 	result->stack_a = set_stack(len, array);
 	if (!result->stack_a && len != 0)
-		return (clear_sorting(result), write(2, "Error\n", 6), NULL);
+		return (free(result), write(2, "Error\n", 6), NULL);
 	result->total_len = len;
 	result->len_a = len;
 	result->len_b = 0;
@@ -46,7 +46,8 @@ static t_stack	*set_stack(int len, char **array)
 	while (i < len)
 	{
 		current = malloc(sizeof(t_stack));
-		if (!current || insert_value(array[i++], &(current->value)))
+		if (!current || insert_value(array[i++], &(current->value))
+			|| if_duplicate(result, current->value))
 			return (clear_stack(result), free(current), NULL);
 		current->next = NULL;
 		if (last)
@@ -54,8 +55,6 @@ static t_stack	*set_stack(int len, char **array)
 		else
 			result = current;
 		last = current;
-		if (if_duplicate(result))
-			return (clear_stack(result), NULL);
 	}
 	return (result);
 }
@@ -84,22 +83,13 @@ static int	insert_value(const char *str, int *result)
 	return (0);
 }
 
-static bool	if_duplicate(t_stack *result)
+static bool	if_duplicate(t_stack *stack, int value)
 {
-	t_stack	*temp;
-	t_stack	*start;
-
-	start = result;
-	while (result)
+	while (stack)
 	{
-		temp = start;
-		while (temp)
-		{
-			if (result != temp && result->value == temp->value)
-				return (true);
-			temp = temp->next;
-		}
-		result = result->next;
+		if (stack->value == value)
+			return (true);
+		stack = stack->next;
 	}
 	return (false);
 }

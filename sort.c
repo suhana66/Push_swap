@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:13:56 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/27 10:28:50 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/27 21:57:26 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,27 @@ static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move);
 
 int	find_move(t_stack *stack, int len, int insert, bool if_desc)
 {
-	long	difference;
-	long	min_difference;
+	long	df;
+	long	mdf;
 	int		count;
 	int		i;
 
 	if (insert > find_max(stack) && !if_desc)
-		insert = INT_MIN;
-	min_difference = LONG_MAX;
+		insert = find_min(stack);
+	if (insert < find_min(stack) && if_desc)
+		insert = find_max(stack);
+	mdf = LONG_MAX;
 	i = -1;
 	count = 0;
-	while (++i < len)
+	while (++i < len && stack)
 	{
-		difference = stack->value - insert;
-		if (stack->value - insert == 0)
+		df = stack->value - insert;
+		if (df == 0)
 			return (i);
-		if ((!if_desc && difference > 0) || (if_desc && difference < 0))
+		if (((!if_desc && df > 0) || (if_desc && df < 0)) && absolute(df) < mdf)
 		{
-			if (absolute(difference) < min_difference)
-			{
-				count = i;
-				min_difference = absolute(difference);
-			}
+			count = i;
+			mdf = absolute(df);
 		}
 		stack = stack->next;
 	}
@@ -53,13 +52,13 @@ void	do_move(t_sorting *sorting, int a_move, int b_move, bool is_cheap)
 	{
 		reverse_rotate(sorting, 'a', false);
 		reverse_rotate(sorting, 'b', false);
-		ft_printf("rrs\n");
+		ft_printf("rrr\n");
 	}
 	while (a_move > 0 && b_move > 0 && a_move-- && b_move--)
 	{
 		rotate(sorting, 'a', false);
 		rotate(sorting, 'b', false);
-		ft_printf("rs\n");
+		ft_printf("rr\n");
 	}
 	while (a_move < 0 && a_move++)
 		reverse_rotate(sorting, 'a', true);
