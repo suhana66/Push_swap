@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:13:56 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/25 20:53:08 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/27 07:43:04 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ int	find_move(t_stack *stack, int len, int insert, bool if_desc)
 	return (count);
 }
 
-void	do_move(t_sorting *sorting, int a_move, int b_move)
+void	do_move(t_sorting *sorting, int a_move, int b_move, bool is_cheap)
 {
-	find_cheap(sorting, &a_move, &b_move);
+	if (!is_cheap)
+		find_cheap(sorting, &a_move, &b_move);
 	while (a_move < 0 && b_move < 0 && a_move++ && b_move++)
 	{
 		reverse_rotate(sorting, 'a', false);
@@ -70,7 +71,28 @@ void	do_move(t_sorting *sorting, int a_move, int b_move)
 
 void	do_cheap(t_sorting *sorting)
 {
-	(void)sorting;
+	int		a_move;
+	int		b_move;
+	int		a_min;
+	int		b_min;
+	t_stack	*counter;
+
+	a_min = INT_MAX;
+	b_min = INT_MAX;
+	counter = sorting->stack_a;
+	while (counter)
+	{
+		a_move = find_move(sorting->stack_a, sorting->len_a, counter->value, false);
+		b_move = find_move(sorting->stack_b, sorting->len_b, counter->value, true);
+		find_cheap(sorting, &a_move, &b_move);
+		if (total_move(a_move, b_move) < total_move(a_min, b_min))
+		{
+			a_min = a_move;
+			b_min = b_move;
+		}
+		counter = counter->next;
+	}
+	do_move(sorting, a_move, b_move, true);
 }
 
 static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move)
@@ -84,10 +106,10 @@ static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move)
 	while (++i < 4)
 	{
 		poss_a[i] = *a_move;
-		if (i >= 2)
+		if (*a_move && i >= 2)
 			poss_a[i] -= sorting->len_a;
 		poss_b[i] = *b_move;
-		if (i % 2 != 0)
+		if (*b_move && i % 2 != 0)
 			poss_b[i] -= sorting->len_b;
 	}
 	min_move = INT_MAX;
