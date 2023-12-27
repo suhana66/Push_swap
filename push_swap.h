@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/26 12:36:08 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/27 09:06:40 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		do_cheap(t_sorting *sorting);
 
 bool		is_sorted(t_stack *stack);
 bool		circle_sorted(t_stack *stack, int stack_len);
-int			absolute(int num);
+long		absolute(int num);
 int			find_min(t_stack *stack);
 int			find_max(t_stack *stack);
 

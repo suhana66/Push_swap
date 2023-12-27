@@ -6,13 +6,13 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 12:13:56 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/27 07:43:04 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/27 10:28:50 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	total_move(int a_move, int b_move);
+static long	total_move(int a_move, int b_move);
 static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move);
 
 int	find_move(t_stack *stack, int len, int insert, bool if_desc)
@@ -22,20 +22,22 @@ int	find_move(t_stack *stack, int len, int insert, bool if_desc)
 	int		count;
 	int		i;
 
+	if (insert > find_max(stack) && !if_desc)
+		insert = INT_MIN;
 	min_difference = LONG_MAX;
 	i = -1;
 	count = 0;
 	while (++i < len)
 	{
-		difference = (long)stack->value - insert;
+		difference = stack->value - insert;
+		if (stack->value - insert == 0)
+			return (i);
 		if ((!if_desc && difference > 0) || (if_desc && difference < 0))
 		{
-			if (difference < 0)
-				difference *= -1;
-			if (difference < min_difference)
+			if (absolute(difference) < min_difference)
 			{
 				count = i;
-				min_difference = difference;
+				min_difference = absolute(difference);
 			}
 		}
 		stack = stack->next;
@@ -71,8 +73,8 @@ void	do_move(t_sorting *sorting, int a_move, int b_move, bool is_cheap)
 
 void	do_cheap(t_sorting *sorting)
 {
-	int		a_move;
-	int		b_move;
+	int		am;
+	int		bm;
 	int		a_min;
 	int		b_min;
 	t_stack	*counter;
@@ -82,25 +84,25 @@ void	do_cheap(t_sorting *sorting)
 	counter = sorting->stack_a;
 	while (counter)
 	{
-		a_move = find_move(sorting->stack_a, sorting->len_a, counter->value, false);
-		b_move = find_move(sorting->stack_b, sorting->len_b, counter->value, true);
-		find_cheap(sorting, &a_move, &b_move);
-		if (total_move(a_move, b_move) < total_move(a_min, b_min))
+		am = find_move(sorting->stack_a, sorting->len_a, counter->value, false);
+		bm = find_move(sorting->stack_b, sorting->len_b, counter->value, true);
+		find_cheap(sorting, &am, &bm);
+		if (total_move(am, bm) < total_move(a_min, b_min))
 		{
-			a_min = a_move;
-			b_min = b_move;
+			a_min = am;
+			b_min = bm;
 		}
 		counter = counter->next;
 	}
-	do_move(sorting, a_move, b_move, true);
+	do_move(sorting, a_min, b_min, true);
 }
 
 static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move)
 {
-	int	poss_a[4];
-	int	poss_b[4];
-	int	i;
-	int	min_move;
+	int		poss_a[4];
+	int		poss_b[4];
+	int		i;
+	long	min_move;
 
 	i = -1;
 	while (++i < 4)
@@ -112,7 +114,7 @@ static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move)
 		if (*b_move && i % 2 != 0)
 			poss_b[i] -= sorting->len_b;
 	}
-	min_move = INT_MAX;
+	min_move = LONG_MAX;
 	while (--i >= 0)
 	{
 		if (total_move(poss_a[i], poss_b[i]) < min_move)
@@ -124,16 +126,14 @@ static void	find_cheap(t_sorting *sorting, int *a_move, int *b_move)
 	}
 }
 
-static int	total_move(int a_move, int b_move)
+static long	total_move(int a_move, int b_move)
 {
 	if ((a_move < 0 && b_move < 0) || (a_move > 0 && b_move > 0))
 	{
-		a_move = absolute(a_move);
-		b_move = absolute(b_move);
-		if (a_move > b_move)
-			return (a_move);
+		if (absolute(a_move) > absolute(b_move))
+			return (absolute(a_move));
 		else
-			return (b_move);
+			return (absolute(b_move));
 	}
 	else
 		return (absolute(a_move) + absolute(b_move));

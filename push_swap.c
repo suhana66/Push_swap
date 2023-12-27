@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:38:05 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/27 07:44:17 by susajid          ###   ########.fr       */
+/*   Updated: 2023/12/27 10:09:41 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static void	sort_3(t_sorting *sorting);
 
 void	push_swap(t_sorting *sorting)
 {
-	if (!sorting || sorting->total_len < 2
-		|| is_sorted(sorting->stack_a))
+	if (!sorting || sorting->total_len < 2 || is_sorted(sorting->stack_a))
 		return ;
 	if (sorting->total_len == 2)
 		return (swap(sorting, 'a', true));
@@ -38,7 +37,7 @@ void	push_swap(t_sorting *sorting)
 		}
 	}
 	do_move(sorting, find_move(sorting->stack_a, sorting->len_a,
-			INT_MIN, false), 0, false);
+			find_min(sorting->stack_a), false), 0, false);
 }
 
 static void	sort_3(t_sorting *sorting)
