@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
-/*   Updated: 2024/01/03 16:37:26 by susajid          ###   ########.fr       */
+/*   Updated: 2024/01/08 10:07:20 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,9 @@ static char	*insert_value(char *str, int *result)
 {
 	int	sign;
 
-	sign = 1;
 	while (ft_isspace(*str))
 		str++;
-	if (!*str)
-		return (NULL);
+	sign = 1;
 	if (*str == '-')
 		sign = -1;
 	if (*str == '-' || *str == '+')

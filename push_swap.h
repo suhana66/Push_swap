@@ -6,7 +6,7 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:54:45 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/27 09:06:40 by susajid          ###   ########.fr       */
+/*   Updated: 2024/01/04 15:20:24 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <limits.h>
 # include <stdbool.h>
-# include "libft/libft.h"
+# include "libft.h"
 
 typedef struct s_stack
 {
@@ -33,7 +33,6 @@ typedef struct s_sorting
 }	t_sorting;
 
 t_sorting	*set_sorting(int len, char **array);
-void		push_swap(t_sorting *sorting);
 void		clear_sorting(t_sorting *sorting);
 void		clear_stack(t_stack *stack);
 

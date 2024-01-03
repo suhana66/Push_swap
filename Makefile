@@ -2,7 +2,6 @@ NAME := push_swap
 SRC := clear.c \
 	instructions.c \
 	main.c \
-	push_swap.c \
 	set.c \
 	sort.c \
 	sort_utils.c
@@ -11,11 +10,12 @@ CFLAGS := -Wall -Wextra -Werror
 
 LIBFT_PATH := libft
 LIBFT := $(LIBFT_PATH)/libft.a
+LIBFT_LINK := -I$(LIBFT_PATH) -L$(LIBFT_PATH) -lft
 
 all: $(NAME)
 
 $(NAME): $(SRC) $(LIBFT)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(SRC) $(LIBFT_LINK) -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_PATH)
@@ -29,4 +29,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all $(NAME) clean fclean re
+.PHONY: all clean fclean re
