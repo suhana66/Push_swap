@@ -6,15 +6,16 @@
 /*   By: susajid <susajid@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:08:38 by susajid           #+#    #+#             */
-/*   Updated: 2023/12/29 07:57:29 by susajid          ###   ########.fr       */
+/*   Updated: 2024/01/03 16:37:26 by susajid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static t_stack	*set_stack(int len, char **array);
-static int		insert_value(const char *str, int *result);
+static char		*insert_value(char *str, int *result);
 static bool		if_duplicate(t_stack *stack, int value);
+static int		stack_len(t_stack *stack);
 
 t_sorting	*set_sorting(int len, char **array)
 {
@@ -27,8 +28,8 @@ t_sorting	*set_sorting(int len, char **array)
 	result->stack_a = set_stack(len, array);
 	if (!result->stack_a && len != 0)
 		return (free(result), write(2, "Error\n", 6), NULL);
-	result->total_len = len;
-	result->len_a = len;
+	result->total_len = stack_len(result->stack_a);
+	result->len_a = result->total_len;
 	result->len_b = 0;
 	return (result);
 }
@@ -46,9 +47,12 @@ static t_stack	*set_stack(int len, char **array)
 	while (i < len)
 	{
 		current = malloc(sizeof(t_stack));
-		if (!current || insert_value(array[i++], &(current->value))
-			|| if_duplicate(result, current->value))
+		if (current)
+			array[i] = insert_value(array[i], &(current->value));
+		if (!current || !array[i] || if_duplicate(result, current->value))
 			return (clear_stack(result), free(current), NULL);
+		if (!*array[i])
+			i++;
 		current->next = NULL;
 		if (last)
 			last->next = current;
@@ -59,28 +63,33 @@ static t_stack	*set_stack(int len, char **array)
 	return (result);
 }
 
-static int	insert_value(const char *str, int *result)
+static char	*insert_value(char *str, int *result)
 {
 	int	sign;
 
 	sign = 1;
+	while (ft_isspace(*str))
+		str++;
+	if (!*str)
+		return (NULL);
 	if (*str == '-')
 		sign = -1;
 	if (*str == '-' || *str == '+')
 		str++;
+	if (!ft_isdigit(*str))
+		return (NULL);
 	*result = 0;
-	if (!*str)
-		return (1);
 	while (*str >= '0' && *str <= '9')
 	{
-		*result = *result * 10 + (*str - '0') * sign;
+		*result = *result * 10 + (*str++ - '0') * sign;
 		if ((*result < 0 && sign > 0) || (*result > 0 && sign < 0))
-			return (2);
-		str++;
+			return (NULL);
 	}
-	if (*str)
-		return (3);
-	return (0);
+	if (*str && !ft_isspace(*str))
+		return (NULL);
+	while (ft_isspace(*str))
+		str++;
+	return (str);
 }
 
 static bool	if_duplicate(t_stack *stack, int value)
@@ -92,4 +101,17 @@ static bool	if_duplicate(t_stack *stack, int value)
 		stack = stack->next;
 	}
 	return (false);
+}
+
+static int	stack_len(t_stack *stack)
+{
+	int	result;
+
+	result = 0;
+	while (stack)
+	{
+		stack = stack->next;
+		result++;
+	}
+	return (result);
 }
